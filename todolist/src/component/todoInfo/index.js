@@ -65,7 +65,7 @@ export default class todoInfo extends Component {
                       </div>
                     :
                     <div className = {todoData.complete ? 'complete' : ''} >
-                        <input className = 'mr-5' type = 'checkbox' checked = {todoData.comlate} onClick = {this.completeTodoInfo}/> 
+                        <input className = 'mr-5' type = 'checkbox' checked = {todoData.complete} onChange = {this.completeTodoInfo}/> 
                         <span onDoubleClick = {this.setIsChange}>{todoData.name}</span>
                         <span onClick = {this.deleteTodoInfo}
                             className = "icon_delete"><RiDeleteBin2Line /></span>
