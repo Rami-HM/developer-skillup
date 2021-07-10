@@ -1,0 +1,109 @@
+.App {
+  text-align: center;
+  position: relative;
+  
+}
+
+.contents{
+  position: absolute;
+  left:50%;
+  width:30vw;
+  min-height:80vh;
+  
+  transform: translate(-50%,10%);
+
+  border: 1px #ccc solid;
+  border-radius: 10px;
+}
+
+.title{
+  text-align: left;
+  margin-left: 10%;
+  padding: 10% 0 7% 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 10px 10px 0 0;
+}
+
+.todo_formText{
+  padding:2% 5% 5% 5%;
+  text-align: left;
+}
+
+.todo_list{
+  padding:2% 5% 0 5%;
+  text-align: left;
+}
+
+.todo_list .list_item {
+  padding: 5px 0 5px 0;
+}
+
+.todo_list .list_item .reg_time{
+  font-size: 0.6rem;
+  color: #555;
+  padding-top:2px;
+}
+
+.todo_list .list_item .icon_delete{
+  float:right;
+  font-size: 0.9rem;
+  color:crimson;
+}
+
+.todo_list .list_item .complete{
+  text-decoration:line-through
+}
+
+.todo_list .list_item::after{
+  content: "";
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #bcbcbc;
+  margin: 2px 0px;
+}
+
+.wdth-20{
+  width:20%;
+}
+
+.wdth-75{
+  width:75%;
+}
+
+.hgt-20{
+  height: 20px;
+}
+
+.hgt-25{
+  height: 25px;
+}
+
+.hgt-30{
+  height: 30px;
+}
+
+.cst-btn {
+  border: 0;
+  border-radius: 2px;
+  margin: 1px 1px 1px 1px;
+}
+
+.btn-dakGray {
+  background-color: #444;
+  color:#fff
+}
+
+.btn-blue {
+  background-color: rgb(59, 122, 204);
+  color:#fff
+}
+
+.form-control {
+  border : 1px #ccc solid;
+  margin: 1px 1px 1px 1px;
+}
+
+.mr-5{
+  margin-right: 5px;
+}
