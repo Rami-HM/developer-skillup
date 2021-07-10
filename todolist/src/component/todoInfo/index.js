@@ -59,7 +59,7 @@ export default class todoInfo extends Component {
                 <span>
                     {this.state.isChange ? 
                       <div>
-                        <input className = 'form-control wdth-75 hgt-20 mr-5' type ="text" value = {this.state.name} onChange = {this.setName}></input>
+                        <input className = 'form-control wdth-75 hgt-20 mr-5' type ="text" value = {this.state.name || ''} onChange = {this.setName}></input>
                         <button className = 'wdth-20 hgt-25 cst-btn btn-blue' 
                                 onClick = {this.updateTodoInfo}><AiOutlineCheck/></button>
                       </div>
