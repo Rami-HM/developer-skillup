@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.SampleMapper">
+	
+	<select id="selectList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select a.id
+			, a.pw
+			, a.name
+			, a.company_code
+			, b.company_name
+			, b.company_type
+			, b.business_type
+			, case when a.company_code = '1' then 'duzon'
+				when a.company_code = '2' then '대기업'
+				when a.company_code = '3' then 'IT기업'
+				else a.company_code end as type1
+			, (select e.email from t_email e where e.email_no = '1') as email
+		from test_user a inner join test_company b
+				on a.company_code = b.company_code
+		<where> 
+			<if test="company_code != null">
+				b.company_code = #{company_code}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectMaxId" resultType="java.lang.Integer">
+		select max(id) + 1 as id
+		from test_user
+	</select>
+	
+	<select id="selectListPaging" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select *
+		from test_user
+		order by id
+		limit #{limit} offset #{offset}
+	</select>
+	
+	<select id="selectListPagingCnt" resultType="java.lang.Integer">
+		select count(*) as cnt
+		from test_user
+	</select>
+	
+	<insert id="insertTran" parameterType="java.util.HashMap">
+    	insert into test_user (id, pw, name, company_code)
+    	values (#{id,jdbcType=INTEGER}, #{pw,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      		#{company_code,jdbcType=VARCHAR})
+  </insert>
+  
+</mapper>

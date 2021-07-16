@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.ScheduleMapper">
+
+	<select id="selectList" resultType="java.util.HashMap">
+		SELECT SCHEDULE_ID, START_TIME, END_TIME, ATTEND_NUM, SCHEDULE_DESC, SCHEDULE_PLACE, SCHEDULE_NAME, USEYN, REG_ID, REG_DATE, UPT_ID, UPT_DATE, CALENDAR_ID
+		FROM T_SCHEDULE
+		WHERE USEYN = 'Y'
+	</select>
+
+	<insert id="insertSchedule" parameterType = "java.util.HashMap">
+		INSERT INTO T_SCHEDULE
+		(START_TIME, END_TIME, ATTEND_NUM, SCHEDULE_DESC, SCHEDULE_PLACE, SCHEDULE_NAME, REG_ID, CALENDAR_ID)
+		VALUES(
+			TO_DATE(#{start_time, jdbcType=VARCHAR},'YYYYMMDD HH24:MM:SS'),
+			TO_DATE(#{end_time, jdbcType=VARCHAR},'YYYYMMDD HH24:MM:SS'),
+			#{attend_num,    jdbcType=INTEGER},
+			#{schedule_desc, jdbcType=VARCHAR},
+			#{schedule_place,jdbcType=VARCHAR},
+			#{schedule_name, jdbcType=VARCHAR},
+			#{reg_id,     	 jdbcType=VARCHAR},
+			#{calendar_id,    jdbcType=INTEGER}
+		)
+	</insert>
+	
+	<update id="updateSchedule" parameterType = "java.util.HashMap">
+	UPDATE T_SCHEDULE
+	SET 
+ 		START_TIME      = TO_DATE(#{start_time, jdbcType=VARCHAR},'YYYYMMDD HH24:MM:SS'),
+ 		END_TIME        = TO_DATE(#{end_time, jdbcType=VARCHAR},'YYYYMMDD HH24:MM:SS'),
+ 		ATTEND_NUM      = #{attend_num     , jdbcType=INTEGER},
+ 		SCHEDULE_DESC   = #{schedule_desc  , jdbcType=VARCHAR},
+ 		SCHEDULE_PLACE  = #{schedule_place , jdbcType=VARCHAR},
+ 		SCHEDULE_NAME   = #{schedule_name  , jdbcType=VARCHAR},
+ 		UPT_ID          = #{upt_id         , jdbcType=VARCHAR},
+ 		UPT_DATE        = now(),
+ 		CALENDAR_ID     = #{calendar_id    , jdbcType=INTEGER}
+	WHERE SCHEDULE_ID = #{schedule_id}
+			
+	</update>
+	
+	<update id="updateUseYNSchedule" parameterType = "java.util.HashMap">
+		UPDATE T_SCHEDULE
+		SET 
+	 		USEYN = 'N',
+	 		UPT_ID          = #{upt_id, jdbcType=VARCHAR},
+	 		UPT_DATE        = now()
+		WHERE SCHEDULE_ID = #{schedule_id, jdbcType=INTEGER}
+	</update>
+	
+</mapper>

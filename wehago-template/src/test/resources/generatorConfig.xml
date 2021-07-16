@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	
+	<classPathEntry location="/Users/ham/.m2/repository/org/postgresql/postgresql/9.4.1211.jre7/postgresql-9.4.1211.jre7.jar" />
+	
+	<context id="context1" targetRuntime="MyBatis3">
+		<jdbcConnection connectionURL="jdbc:postgresql://127.0.0.1:5432/tmpltcal?currentSchema=public" driverClass="org.postgresql.Driver"
+			userId="tmpltcal" password="1234" />
+		
+		<javaModelGenerator targetPackage="com.duzon.lulu.auto.model" targetProject="wehago-template/src/main/java">
+			<property name="trimStrings" value="false" />
+		</javaModelGenerator>
+		
+		<sqlMapGenerator targetPackage="mapper.auto" targetProject="wehago-template/src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		
+		<javaClientGenerator targetPackage="com.duzon.lulu.auto.mapper" targetProject="wehago-template/src/main/java" type="XMLMAPPER">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		
+		
+		<table tableName="t_calendar"><property name="useActualColumnNames" value="true"/></table>
+		<table tableName="t_schedule"><property name="useActualColumnNames" value="true"/></table>
+		
+		
+	</context>
+</generatorConfiguration>

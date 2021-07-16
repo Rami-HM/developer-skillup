@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.CalendarMapper">
+
+	<select id="selectList" resultType="java.util.HashMap">
+		SELECT CALENDAR_ID,
+		CALENDAR_NAME, REG_ID, REG_DATE, UPT_ID, UPT_DATE, USEYN
+		FROM T_CALENDAR
+		WHERE USEYN = 'Y'
+
+	</select>
+	
+	<select id="selectMaxCalendarId" resultType="java.lang.Long">
+		SELECT NEXTVAL('t_calendar_calendar_id_seq')
+	</select>
+	
+	<insert id="insertCalendar" parameterType = "java.util.HashMap">
+		INSERT INTO T_CALENDAR(CALENDAR_NAME,REG_ID)
+		VALUES(#{calendar_name,jdbcType=VARCHAR}, #{reg_id,jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="updateCalendar" parameterType = "java.util.HashMap">
+		UPDATE T_CALENDAR
+		SET CALENDAR_NAME = #{calendar_name, jdbcType=VARCHAR},
+			UPT_ID = #{upt_id, jdbcType=VARCHAR},
+			UPT_DATE = NOW()
+		WHERE CALENDAR_ID = CAST(#{calendar_id, jdbcType=INTEGER} AS INTEGER) <!-- ERROR: operator does not exist: bigint = character varying -->
+	</update>
+	
+	<update id="updateUseYNCalendar" parameterType = "java.lang.Integer">
+		UPDATE T_CALENDAR
+		SET USEYN = 'N'
+			,UPT_DATE = now()
+		WHERE CALENDAR_ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="schedularDeleteCalendar">
+		DELETE FROM T_CALENDAR 
+		WHERE CALENDAR_ID IN (SELECT CALENDAR_ID FROM T_CALENDAR TC WHERE USEYN = 'N' AND (EXTRACT(EPOCH FROM NOW() - UPT_DATE)/3600)::INTEGER >= 24)
+	</update>
+	
+</mapper>
